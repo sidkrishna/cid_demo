@@ -1,0 +1,11 @@
+---
+name: "fabric_config_set"
+action_ref: "events_demo.fabric_config_set"
+description: "Sets config parameters for a fabric."
+formats:
+    - "cid set config for fabric {{fabric}} {{p2p_link_range}} {{leaf_asn_block}} {{spine_asn_block}} {{loopback_ip_range}} {{loopback_port_number}} {{anycast_mac}} {{max_paths}} {{bfd_multiplier}} {{bfd_rx}} {{bfd_tx}} {{bgp_multihop}} {{evpn_enabled}} {{vtep_loopback_port_number}}"
+ack:
+    format: "Hold tight while I add the config to fabric *{{execution.parameters.fabric}}*. Meanwhile, sit back, relax and enjoy your coffee!"
+result:
+    format: |
+        Fabric {{execution.parameters.fabric}} is now configured!

@@ -1,0 +1,66 @@
+---
+name: fabric_config_set 
+pack: events_demo
+description: Set config parameters for a fabric 
+enabled: true
+runner_type: mistral-v2
+entry_point: workflows/fabric_config_set.yaml
+parameters:
+    skip_notify:
+        default:
+            - "set_p2p_link_range"
+            - "set_leaf_asn_block"
+            - "set_spine_asn_block"
+            - "set_loopback_ip_range"
+            - "set_loopback_port_number"
+            - "set_anycast_mac"
+            - "set_max_paths"
+            - "set_bfd_multiplier"
+            - "set_bfd_rx"
+            - "set_bfd_tx"
+            - "set_bgp_multihop"
+            - "set_evpn_enabled"
+            - "set_vtep_loopback_port_number"
+    fabric:
+        type: string
+        description: Name of the IP fabric to configure
+        default: default
+    p2p_link_range:
+        type: string
+        description: p2p_link_range
+    leaf_asn_block:
+        type: string
+        description: leaf_asn_block 
+    spine_asn_block:
+        type: string
+        description: spine_asn_block 
+    loopback_ip_range:
+        type: string
+        description: loopback_ip_range
+    loopback_port_number:
+        type: string
+        description: loopback_port_number
+    anycast_mac:
+        type: string
+        description: anycast_mac 
+    max_paths:
+        type: string
+        description: max_paths 
+    bfd_multiplier:
+        type: string
+        description: bfd_multiplier 
+    bfd_rx:
+        type: string
+        description: bfd_rx 
+    bfd_tx:
+        type: string
+        description: bfd_tx
+    bgp_multihop:
+        type: string
+        description: bgp_multihop 
+    evpn_enabled:
+        type: string
+        description: evpn_enabled
+    vtep_loopback_port_number:
+        type: string
+        description: vtep_loopback_port_number 

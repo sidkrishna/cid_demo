@@ -1,0 +1,11 @@
+---
+name: "add_and_configure_ipfabric_on_switch"
+action_ref: "events_demo.add_and_configure_ipfabric_on_switch"
+description: "Add a switch and configure IP Fabric on it."
+formats:
+    - "cid add and configure switch {{host}} for fabric {{fabric}}"
+ack:
+    format: "Hold tight while I add switch *{{execution.parameters.host}}* to fabric *{{execution.parameters.fabric}}*. Meanwhile, sit back, relax and enjoy your coffee!"
+result:
+    format: |
+        Host {{execution.parameters.host}} is now configured!

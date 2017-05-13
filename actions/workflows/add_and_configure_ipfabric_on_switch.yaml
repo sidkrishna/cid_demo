@@ -1,0 +1,53 @@
+version: '2.0'
+events_demo.add_and_configure_ipfabric_on_switch:
+    description: Add a Switch and Configure IP fabric on it.
+    type: direct
+    input:
+        - fabric
+        - host
+        - username
+        - password
+        - batch_size
+
+    vars:
+        notify_channels:
+            - "cid"
+
+    tasks:
+        add_switch:
+            action: network_inventory.switch_add
+            input:
+                fabric: <% $.fabric %>
+                host: <% $.host %>
+                user: <% $.username %>
+                passwd: <% $.password %>
+            on-success:
+                - configure_fabric
+            on-error:
+                - notify_failure
+
+        configure_fabric:
+            action: dcfabric.configure_fabric_infra 
+            input:
+                fabric: <% $.fabric %>
+                username: <% $.username %>
+                password: <% $.password %>
+                batch_size: <% $.batch_size %>
+            on-success:
+                - notify_success
+            on-error:
+                - notify_failure
+
+        notify_success:
+            with-items: channel in <% $.notify_channels %>
+            action: chatops.post_message 
+            input:
+                channel: <% $.channel %>
+                message: "HURRAY! Switch successfully added and IP Fabric configured."
+        
+        notify_failure:
+            with-items: channel in <% $.notify_channels %>
+            action: chatops.post_message
+            input:
+                channel: <% $.channel %>
+                message: "ARGHH!! Failed to configure IP Fabric."

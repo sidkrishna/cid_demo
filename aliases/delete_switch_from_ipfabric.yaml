@@ -1,0 +1,13 @@
+---
+name: "delete_switch_from_ipfabric"
+action_ref: "network_inventory.switch_delete"
+description: "Delete a switch and clear it's configuration."
+formats:
+    - "cid delete switch {{ host }} {{ clear_config=true }}"
+ack:
+    format: "Hold tight while I delete switch *{{execution.parameters.host}}*"
+result:
+    format: |
+        Switch {{execution.parameters.host}} is now deleted!
+
+        Bye bye, {{execution.parameters.host}}! So long! Miss ya already!

@@ -1,0 +1,21 @@
+---
+    name: "add_and_configure_ipfabric_on_switch"
+    pack: "events_demo"
+    description: "Webhook to add a switch and configure IP Fabric."
+    enabled: true
+
+    trigger:
+        type: "core.st2.webhook"
+        parameters:
+            url: "switch/add"
+
+    criteria:
+        trigger.body.fabric:
+            type: "equals"
+            pattern: "demo_fabric"
+
+    action:
+        ref: "events_demo.add_and_configure_ipfabric_on_switch"
+        parameters:
+            fabric: "{{trigger.body.fabric}}"
+            host: "{{trigger.body.host}}"

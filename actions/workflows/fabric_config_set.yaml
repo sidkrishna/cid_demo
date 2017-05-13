@@ -1,0 +1,167 @@
+version: '2.0'
+events_demo.fabric_config_set:
+    description: Sets config parameters for a fabric 
+    type: direct
+    input:
+        - fabric
+        - p2p_link_range
+        - leaf_asn_block
+        - spine_asn_block
+        - loopback_ip_range
+        - loopback_port_number
+        - anycast_mac
+        - max_paths
+        - bfd_multiplier
+        - bfd_rx
+        - bfd_tx
+        - bgp_multihop
+        - evpn_enabled
+        - vtep_loopback_port_number
+
+    tasks:
+        set_p2p_link_range:
+            action: network_inventory.fabric_config_set 
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.p2p_link_range %>
+                key: "p2p_link_range" 
+            on-success:
+                - set_leaf_asn_block 
+            on-error:
+                - notify_failure
+
+        set_leaf_asn_block:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.leaf_asn_block %>
+                key: "leaf_asn_block"
+            on-success:
+                - set_spine_asn_block 
+            on-error:
+                - notify_failure
+
+        set_spine_asn_block:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.spine_asn_block %>
+                key: "spine_asn_block"
+            on-success:
+                - set_loopback_ip_range 
+            on-error:
+                - notify_failure
+
+        set_loopback_ip_range:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.loopback_ip_range %>
+                key: "loopback_ip_range"
+            on-success:
+                - set_loopback_port_number 
+            on-error:
+                - notify_failure
+
+        set_loopback_port_number:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.loopback_port_number %>
+                key: "loopback_port_number"
+            on-success:
+                - set_anycast_mac 
+            on-error:
+                - notify_failure
+
+        set_anycast_mac:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.anycast_mac %>
+                key: "anycast_mac"
+            on-success:
+                - set_max_paths
+            on-error:
+                - notify_failure
+
+        set_max_paths:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.max_paths %>
+                key: "max_paths"
+            on-success:
+                - set_bfd_multiplier 
+            on-error:
+                - notify_failure
+
+        set_bfd_multiplier:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.bfd_multiplier %>
+                key: "bfd_multiplier"
+            on-success:
+                - set_bfd_rx 
+            on-error:
+                - notify_failure
+
+        set_bfd_rx:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.bfd_rx %>
+                key: "bfd_rx"
+            on-success:
+                - set_bfd_tx 
+            on-error:
+                - notify_failure
+
+        set_bfd_tx:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.bfd_tx %>
+                key: "bfd_tx"
+            on-success:
+                - set_bgp_multihop 
+            on-error:
+                - notify_failure
+
+        set_bgp_multihop:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.bgp_multihop %>
+                key: "bgp_multihop"
+            on-success:
+                - set_evpn_enabled
+            on-error:
+                - notify_failure
+
+        set_evpn_enabled:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.evpn_enabled %>
+                key: "evpn_enabled"
+            on-success:
+                - set_vtep_loopback_port_number 
+            on-error:
+                - notify_failure
+
+        set_vtep_loopback_port_number:
+            action: network_inventory.fabric_config_set
+            input:
+                fabric: <% $.fabric %>
+                value: <% $.vtep_loopback_port_number %>
+                key: "vtep_loopback_port_number"
+            on-error:
+                - notify_failure 
+
+        notify_failure:
+            action: chatops.post_message
+            input:
+                channel: "skdemo" 
+                message: "ARGHH!! Failed to set fabric config."

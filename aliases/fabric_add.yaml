@@ -1,0 +1,11 @@
+---
+name: "fabric_add"
+action_ref: "network_inventory.fabric_add"
+description: "Adds a new IP fabric."
+formats:
+    - "cid add fabric {{fabric}}"
+ack:
+    format: "Hold tight while I add fabric *{{execution.parameters.fabric}}*. Meanwhile, sit back, relax and enjoy your coffee!"
+result:
+    format: |
+        Fabric {{execution.parameters.fabric}} is now added!

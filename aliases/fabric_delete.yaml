@@ -1,0 +1,11 @@
+---
+name: "fabric_delete"
+action_ref: "network_inventory.fabric_delete"
+description: "Deletes an existing IP fabric from inventory."
+formats:
+    - "cid delete fabric {{fabric}}"
+ack:
+    format: "Hold tight while I delete fabric *{{execution.parameters.fabric}}*. Meanwhile, sit back, relax and enjoy your coffee!"
+result:
+    format: |
+        Fabric {{execution.parameters.fabric}} is now deleted!

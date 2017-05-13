@@ -1,0 +1,11 @@
+---
+name: "add_switch_to_fabric"
+action_ref: "events_demo.add_switch_to_fabric"
+description: "Add a switch to IP fabric."
+formats:
+    - "cid add switch {{host}} to fabric {{fabric}}"
+ack:
+    format: "Hold tight while I add switch *{{execution.parameters.host}}* to fabric *{{execution.parameters.fabric}}*. Meanwhile, sit back, relax and enjoy your coffee!"
+result:
+    format: |
+        Host {{execution.parameters.host}} is now added to IP fabric {{execution.parameters.fabric}}!

@@ -1,0 +1,28 @@
+---
+name: add_switch_to_fabric
+pack: events_demo
+description: Add a switch and configure IP fabric on the switch
+enabled: true
+runner_type: mistral-v2
+entry_point: workflows/add_switch_to_fabric.yaml
+parameters:
+    skip_notify:
+        default:
+            - "add_switch"
+    fabric:
+        type: string
+        description: Name of the IP fabric to configure
+        default: default
+    username:
+        type: string
+        description: Default user name to ssh into host(s). If not provided will be picked up from kv store.
+        default: "admin"
+    password:
+        type: string
+        description: Default password to ssh into host(s). If not provided will be picked up from kv store.
+        secret: true
+        default: "password"
+    host:
+        type: string
+        description: IP address of the switch we are adding.
+        required: true
